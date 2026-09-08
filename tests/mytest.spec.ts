@@ -44,4 +44,30 @@ test.describe('Saucedemo тест', () => {
       )
     ).toBeVisible();    
   });
+
+    test('3. Бараа эрэмбэлэх', async ({ page }) => {
+    // Нэвтрэх хуудас руу шилжиж нэвтэрнэ
+    await page.goto('https://www.saucedemo.com/');
+    await page.getByPlaceholder('Username').fill('standard_user');
+    await page.getByPlaceholder('Password').fill('secret_sauce');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    // Амжилттай нэвтэрсэн эсэхийг шалгана
+    await expect(page).toHaveURL(/.*inventory.html/);
+
+    // Эрэмбэлэх цэснээс үнэ (low to high) тохиргоог сонгоно
+    await page.getByRole('combobox').selectOption('lohi');
+
+    // Шүүсний дараах хамгийн эхний бараа нь хамгийн хямд бараа болох "Sauce Labs Onesie" болсон эсэхийг шалгана
+    await expect(
+    page.getByText('Sauce Labs Onesie', { exact: true }).first()
+    ).toBeVisible();
+
+    // Гарах
+    await page.getByRole('button', { name: 'Open Menu' }).click();
+    await page.getByRole('link', { name: 'Logout' }).click();
+
+    // Буцаад нэвтрэх хуудас руу очсон эсэхийг шалгана
+    await expect(page).toHaveURL('https://www.saucedemo.com/');
+  });
 });
