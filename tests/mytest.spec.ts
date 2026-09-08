@@ -7,7 +7,7 @@ test.describe('Saucedemo тест', () => {
 
     // Хэрэглэгчийн нэр болон нууц үгийг оруулна
     await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
+    await page.getByPlaceholder('Password').fill('buruu_password');
 
     await page.getByRole('button', { name: 'Login' }).click();
 
@@ -39,7 +39,7 @@ test.describe('Saucedemo тест', () => {
     // Алдааны мэдээлэл таарж байгаа эсэхийг шалгана
     await expect(
       page.getByText(
-        'Epic sadface: Username and password do not match any user in this service',
+        'Epic sadface: Buruu text bichiw.',
         { exact: true }
       )
     ).toBeVisible();    
